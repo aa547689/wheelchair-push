@@ -2224,7 +2224,7 @@ async function boot(){
   if (location.hash === '#cover') document.body.classList.add('cover');
   requestAnimationFrame(t => { last = t; frame(t); });
 }
-if (location.hash === '#debug') window.__game = { S, hands, elev, startLevel, buildLevel, LEVELS, press, zoneAt, statics:() => statics, peds:() => peds, bikes:() => bikes, ramps:() => ramps, queues:() => queues, lvs:() => LVS,
+if (location.hash === '#debug') window.__game = { S, hands, elev, startLevel, buildLevel, LEVELS, press, zoneAt, renderer, scene, camera, chair, canvas, spawnBike, spawnPed, clearMovers, resize, TH:() => TH, statics:() => statics, peds:() => peds, bikes:() => bikes, ramps:() => ramps, queues:() => queues, lvs:() => LVS,
   sim(sec, bot){ let t = last; for (let i = 0; i < sec * 60; i++) { t += 1000 / 60; if (bot) bot(S, i); step(t); } last = performance.now(); } };
 boot();
 })();
