@@ -1,6 +1,15 @@
 <meta charset="utf-8">
 <title>一路推到底</title>
 <meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="只有左手、右手兩個按鈕，閃過違停機車、攤販和腳踏車，你推得過台灣的人行道嗎？手機 3D 輪椅小遊戲。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="一路推到底｜台灣人行道輪椅挑戰">
+<meta property="og:description" content="只有左手、右手兩個按鈕，閃過違停機車、攤販和腳踏車，你推得過台灣的人行道嗎？">
+<meta property="og:url" content="https://aa547689.github.io/wheelchair-push/">
+<meta property="og:image" content="https://aa547689.github.io/wheelchair-push/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Huninn&display=swap">
@@ -142,6 +151,25 @@ button:focus-visible{outline:3px solid var(--sign);outline-offset:3px}
 .resimg{display:block;width:100%;max-width:100%;aspect-ratio:4/5;object-fit:cover;background:var(--ink);-webkit-touch-callout:default;-webkit-user-select:auto;user-select:auto}
 .respad{display:flex;flex-direction:column;gap:12px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 .rowbtns.small .go{font-size:15px;padding:10px}
+.sheet{position:fixed;inset:0;z-index:15;background:rgba(10,16,22,.72);display:flex;align-items:flex-end;justify-content:center;
+  padding-bottom:calc(env(safe-area-inset-bottom,0px) + 16px);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.panel{width:100%;max-width:440px;background:var(--white);color:var(--ink);border:3px solid var(--ink);border-radius:20px;padding:18px;display:flex;flex-direction:column;gap:12px;box-shadow:0 6px 0 var(--ink)}
+.panel h2{margin:0;font-weight:400;font-size:21px;text-align:center}
+.panel p{margin:0;font-size:13px;text-align:center;opacity:.7;line-height:1.5}
+.sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.net{border:0;border-radius:14px;padding:12px 4px 10px;color:#fff;font-size:14px;display:flex;flex-direction:column;align-items:center;gap:6px;text-decoration:none;font-family:inherit;cursor:pointer}
+.net:active{transform:translateY(2px)}
+.net i{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.22);display:grid;place-items:center;font-style:normal;font-size:17px;font-weight:700;font-family:system-ui,sans-serif}
+.net.fb{background:#1877f2}.net.ig{background:linear-gradient(45deg,#f9a825,#e1306c 55%,#833ab4)}.net.line{background:#06c755}
+.net.th,.net.x{background:#111}.net.cp{background:var(--plate)}
+.cover #menu .plates,.cover #menu .how,.cover #menu .tiny{display:none!important}
+.cover #menu{background:none;align-items:center;justify-content:flex-start;padding-left:64px}
+.cover #menu .card{max-width:560px;margin:0}
+.cover .signboard h1{font-size:92px}
+.cover .signboard p{font-size:24px}
+.covertag{display:none}
+.cover .covertag{display:block;margin:10px 0 0;font-size:26px;line-height:1.5;color:var(--white);text-shadow:0 3px 0 var(--ink),2px 0 0 var(--ink),-2px 0 0 var(--ink),0 -2px 0 var(--ink)}
 .resline{text-align:center;font-size:13px;opacity:.85;font-variant-numeric:tabular-nums}
 @media (prefers-reduced-motion:reduce){.toast.pop,.sync.pop{animation-duration:.01s}.chip{animation:none}}
 @media (min-aspect-ratio:4/3){
@@ -197,6 +225,7 @@ button:focus-visible{outline:3px solid var(--sign);outline-offset:3px}
   <div class="screen" id="menu">
     <div class="card">
       <div class="signboard"><h1>一路推到底</h1><p>台灣人行道輪椅挑戰</p></div>
+      <p class="covertag">只有左手、右手兩個按鈕，<br>你推得過台灣的人行道嗎？</p>
       <div class="plates" id="plates"></div>
       <div class="how">
         <h2>怎麼推</h2>
@@ -230,6 +259,23 @@ button:focus-visible{outline:3px solid var(--sign);outline-offset:3px}
         <div class="resline" id="resLine"></div>
         <div class="fact" id="resFact"></div>
       </div>
+    </div>
+  </div>
+
+  <!-- share panel (computers, and anywhere the phone share sheet is unavailable) -->
+  <div class="sheet" id="sharePanel" hidden>
+    <div class="panel" role="dialog" aria-labelledby="shareTitle">
+      <h2 id="shareTitle">分享到社群</h2>
+      <p>點下去會自動複製邀請文字，到社群貼上就好</p>
+      <div class="sgrid">
+        <a class="net fb" data-net="fb" target="_blank" rel="noopener"><i>f</i>Facebook</a>
+        <a class="net ig" data-net="ig" target="_blank" rel="noopener"><i>◎</i>Instagram</a>
+        <a class="net line" data-net="line" target="_blank" rel="noopener"><i>L</i>LINE</a>
+        <a class="net th" data-net="th" target="_blank" rel="noopener"><i>@</i>Threads</a>
+        <a class="net x" data-net="x" target="_blank" rel="noopener"><i>X</i>X</a>
+        <button class="net cp" data-net="cp"><i>⧉</i>複製文字</button>
+      </div>
+      <button class="go alt" id="btnPanelClose">關閉</button>
     </div>
   </div>
 </div>
@@ -1041,7 +1087,7 @@ let pausedFrom = 'play', lastCount = '';
 function startLevel(i){
   audioInit();
   buildLevel(i); resetRun();
-  show(null); setPlayUI(true);
+  show(null); setPlayUI(true); $('#sharePanel').hidden = true;
   $('#lvName').textContent = `第${i + 1}關・${LV.name}`;
   $('#hint').hidden = false; $('#hint').classList.remove('fade'); $('#toast').className = 'toast';
   S.mode = 'countdown'; S.cd = 3.6; lastCount = ''; S.snap = true;
@@ -1050,7 +1096,7 @@ function startLevel(i){
 }
 function pauseGame(){ if (S.mode !== 'play' && S.mode !== 'countdown') return; pausedFrom = S.mode; S.mode = 'paused'; bgm.pause(); show('pause'); }
 function resumeGame(){ if (S.mode !== 'paused') return; S.mode = pausedFrom; show(null); playBgm(); last = performance.now(); }
-function toMenu(){ S.mode = 'menu'; setPlayUI(false); bgm.pause(); $('#count').hidden = true; renderPlates(); show('menu'); buildLevel(Math.min(save.unlocked, LEVELS.length) - 1); resetRun(); S.snap = true; }
+function toMenu(){ S.mode = 'menu'; setPlayUI(false); bgm.pause(); $('#count').hidden = true; $('#sharePanel').hidden = true; renderPlates(); show('menu'); buildLevel(Math.min(save.unlocked, LEVELS.length) - 1); resetRun(); S.snap = true; }
 
 function scoreRun(){
   const par = LV.len / 1.75;
@@ -1206,26 +1252,50 @@ async function saveImage(){
     try { if (navigator.canShare({ files:[file] })) { await navigator.share({ files:[file] }); return; } }
     catch (e) { if (e && e.name === 'AbortError') return; }
   }
-  const a = document.createElement('a'); a.href = shareDataUrl; a.download = file ? file.name : '一路推到底.jpg';
-  document.body.appendChild(a); a.click(); a.remove();
+  downloadImage();
   toast('圖片已儲存', true);
 }
+const isTouch = matchMedia('(pointer: coarse)').matches;
 async function shareResult(){
-  const text = shareText();
-  if (!inFrame) {
-    const file = shareFile();
+  // phones: the system share sheet carries the picture and text straight into IG / FB / LINE
+  if (!inFrame && isTouch) {
+    const text = shareText(), file = shareFile();
     if (file && navigator.canShare) {
       try { if (navigator.canShare({ files:[file] })) { await navigator.share({ files:[file], text, title:'一路推到底' }); return; } }
       catch (e) { if (e && e.name === 'AbortError') return; }
     }
-    if (navigator.share) {
-      try { await navigator.share({ text, title:'一路推到底' }); return; }
-      catch (e) { if (e && e.name === 'AbortError') return; }
-    }
   }
-  try { await navigator.clipboard.writeText(text); toast('邀請文字已複製！\n長按圖片存起來，一起貼到社群', true); }
-  catch (e) { toast('長按圖片存起來，再貼到社群', true); }
+  openSharePanel();
 }
+function openSharePanel(){
+  const text = shareText(), url = shareUrl() || location.href, enc = encodeURIComponent;
+  const links = {
+    fb:`https://www.facebook.com/sharer/sharer.php?u=${enc(url)}`,
+    ig:'https://www.instagram.com/',
+    line:`https://social-plugins.line.me/lineit/share?url=${enc(url)}&text=${enc(text)}`,
+    th:`https://www.threads.net/intent/post?text=${enc(text)}`,
+    x:`https://x.com/intent/post?text=${enc(text)}`,
+  };
+  document.querySelectorAll('#sharePanel a.net').forEach(a => { a.href = links[a.dataset.net]; });
+  $('#sharePanel').hidden = false;
+}
+function copyShareText(){ try { navigator.clipboard.writeText(shareText()).catch(() => {}); } catch (e) {} }
+function downloadImage(){
+  if (inFrame) return false;
+  const file = shareFile();
+  const a = document.createElement('a'); a.href = shareDataUrl; a.download = file ? file.name : '一路推到底.jpg';
+  document.body.appendChild(a); a.click(); a.remove();
+  return true;
+}
+document.querySelectorAll('#sharePanel .net').forEach(el => el.addEventListener('click', () => {
+  copyShareText();
+  const net = el.dataset.net;
+  if (net === 'fb') toast('邀請文字已複製，在 FB 貼上就好\n想附成績圖，先按「儲存圖片」', true);
+  else if (net === 'ig') toast(downloadImage() ? '圖片已下載、文字已複製\n到 IG 按「建立」上傳圖片' : '文字已複製\n長按圖片存起來，再到 IG 上傳', true);
+  else if (net === 'cp') toast('邀請文字已複製！', true);
+}));
+$('#btnPanelClose').addEventListener('click', () => { $('#sharePanel').hidden = true; });
+$('#sharePanel').addEventListener('click', e => { if (e.target.id === 'sharePanel') $('#sharePanel').hidden = true; });
 $('#btnSave').addEventListener('click', saveImage);
 $('#btnShare').addEventListener('click', shareResult);
 
@@ -1521,9 +1591,10 @@ function updateCamera(dt){
   const rig = camRig();
   let fov = rig.fov;
   if (S.mode === 'menu') {
-    const a = perfNow * 0.00018;
+    const cover = document.body.classList.contains('cover');
+    const a = cover ? 0.6 : perfNow * 0.00018;
     _tp.set(S.x + 1.6 + Math.cos(a) * 1.5, 2.2, S.z + 3.4 + Math.sin(a) * 0.6);
-    _tl.set(S.x + 0.6, 0.8, S.z - 0.2);
+    _tl.set(S.x + 0.6 - (cover ? 1.5 : 0), 0.8, S.z - 0.2);
     fov = 55;
   } else if (S.mode === 'end' && S.won) {
     _tp.set(S.x + 3.2, 2.0 + S.y, S.z + 3.0);
@@ -1634,6 +1705,7 @@ async function boot(){
   resize();
   setMuted(!!save.muted);
   toMenu();
+  if (location.hash === '#cover') document.body.classList.add('cover');
   requestAnimationFrame(t => { last = t; frame(t); });
 }
 if (location.hash === '#debug') window.__game = { S, hands, startLevel, buildLevel, LEVELS, press, statics:() => statics, peds:() => peds, bikes:() => bikes, ramps:() => ramps,
